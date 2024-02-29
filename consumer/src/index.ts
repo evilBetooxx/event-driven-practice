@@ -1,6 +1,9 @@
 import express from "express";
-import { connect, Channel } from "amqplib";
+import { connect } from "amqplib";
 import axios from "axios";
+import dotenv from "dotenv";
+
+dotenv.config();
 
 const app = express();
 const port = 4000;
@@ -8,7 +11,7 @@ const port = 4000;
 async function startConsumer() {
   try {
     const connection = await connect(process.env.CLOUDAMQP_URL || "");
-    const channel: Channel = await connection.createChannel();
+    const channel = await connection.createChannel();
     const queue = "initial";
     
     const result = await channel.checkQueue(queue);
