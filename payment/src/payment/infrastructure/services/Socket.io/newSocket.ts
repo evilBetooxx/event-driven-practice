@@ -11,9 +11,8 @@ export class NewSocket implements ISocket {
   async emitSocket(event: string, data: any): Promise<boolean> {
     try {
       const socket = socketClient(this.url);
-      socket.emit(event, data);
-      socket.disconnect();
-      console.log('Mensaje emitido correctamente');
+      socket.emit("payment");
+      console.log('Mensaje emitido correctamente', event);
       return true;
     } catch (error) {
       console.error('Error al enviar mensaje:', error);

@@ -1,6 +1,16 @@
 import axios from "axios";
+import { io } from "socket.io-client";
+import { useEffect } from "react";
 
 function App() {
+  const socket = io("http://localhost:3002");
+
+  useEffect(() => {
+    socket.on("payment", () => {
+      console.log("Pago recibido: ");
+    });
+  }, []);
+
   const handleOnClick = async () => {
     try {
       await axios.post("http://localhost:3000/order", {

@@ -14,7 +14,11 @@ const server = app.listen(port, () => {
   console.log("Servidor WebSocket corriendo en el puerto", port);
 });
 
-const io: Server = new Server(server);
+const io: Server = new Server(server, {
+  cors: {
+    origin: "*",
+  }
+});
 
 io.on("connection", (socket) => {
   console.log("Usuario Conectado");
