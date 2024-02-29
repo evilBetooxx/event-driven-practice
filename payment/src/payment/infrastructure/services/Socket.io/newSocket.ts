@@ -8,10 +8,10 @@ export class NewSocket implements ISocket {
     this.url = process.env.SOCKET_URL || '';
   }
 
-  async emitSocket(data: any): Promise<boolean> {
+  async emitSocket(event: string, data: any): Promise<boolean> {
     try {
       const socket = socketClient(this.url);
-      socket.emit('payment', data);
+      socket.emit(event, data);
       socket.disconnect();
       console.log('Mensaje emitido correctamente');
       return true;

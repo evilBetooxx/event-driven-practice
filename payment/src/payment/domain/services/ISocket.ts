@@ -1,3 +1,3 @@
 export interface ISocket {
-    emitSocket(data: any): Promise<boolean>;
+    emitSocket(event: string, data: any): Promise<boolean>;
 }
