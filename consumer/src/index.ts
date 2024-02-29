@@ -10,7 +10,13 @@ async function startConsumer() {
     const connection = await connect(process.env.CLOUDAMQP_URL || "");
     const channel: Channel = await connection.createChannel();
     const queue = "initial";
-    await channel.assertQueue(queue, { durable: false });
+    
+    const result = await channel.checkQueue(queue);
+    if (result) {
+      console.log(`La cola '${queue}' ya existe`);
+    } else {
+      console.log(`La cola '${queue}' no existe`);
+    }
 
     channel.consume(queue, async (message) => {
       if (message !== null) {
