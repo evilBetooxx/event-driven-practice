@@ -1,5 +1,9 @@
+import express from "express";
 import { connect, Channel } from "amqplib";
 import axios from "axios";
+
+const app = express();
+const port = 4000;
 
 async function startConsumer() {
   try {
@@ -26,4 +30,8 @@ async function startConsumer() {
   }
 }
 
-startConsumer().catch(console.error);
+startConsumer()
+
+app.listen(port, () => {
+  console.log(`Servidor Express escuchando en el puerto ${port}`);
+});

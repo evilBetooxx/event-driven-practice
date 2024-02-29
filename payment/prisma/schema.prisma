@@ -3,6 +3,13 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mongodb"
   url      = env("DATABASE_URL")
+}
+
+model Payment {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  total     Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
