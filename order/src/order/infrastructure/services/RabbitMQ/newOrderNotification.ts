@@ -32,11 +32,11 @@ export class NewOrderNotification implements INotification {
     } finally {
       if (ch) {
         await ch.close();
-        console.log("Channel closed");
+        console.log("Canal cerrado");
       }
       if (conn) {
         await conn.close();
-        console.log("Connection closed");
+        console.log("Conexión cerrada");
       }
     }
   }
