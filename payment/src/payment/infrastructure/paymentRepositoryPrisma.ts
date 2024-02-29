@@ -18,6 +18,6 @@ export class PaymentRepositoryPrisma implements IPaymentRepository {
         updatedAt: payment.updatedAt,
       },
     });
-    signale.success(`Orden creada: ${newPayment.id}`);
+    signale.success(`Pago recibido: ${newPayment.total} - ${newPayment.id}`);
   }
 }

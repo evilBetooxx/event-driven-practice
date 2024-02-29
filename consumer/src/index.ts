@@ -13,20 +13,16 @@ async function startConsumer() {
     const connection = await connect(process.env.CLOUDAMQP_URL || "");
     const channel = await connection.createChannel();
     const queue = "initial";
-    
-    const result = await channel.checkQueue(queue);
-    if (result) {
-      console.log(`La cola '${queue}' ya existe`);
-    } else {
-      console.log(`La cola '${queue}' no existe`);
-    }
 
     channel.consume(queue, async (message) => {
       if (message !== null) {
-        const payment = message.content.toString();
-        console.log("Orden recibida: ", payment);
+        const payment = JSON.parse(message.content.toString());
+        const amount = parseInt(payment.amount); 
+        console.log("Orden recibida, pago de: $", amount);
         try {
-          await axios.post(process.env.PAYMENT_URL || "", JSON.parse(payment));
+          await axios.post(process.env.PAYMENT_URL || "", {
+            total: amount,
+          });
           console.log("Pago enviado al servicio de pagos");
         } catch (error) {
           console.log(error);
