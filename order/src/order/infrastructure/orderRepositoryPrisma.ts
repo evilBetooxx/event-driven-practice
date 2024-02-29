@@ -13,7 +13,6 @@ export class OrderRepositoryPrisma implements IOrderRepository {
   async create(order: Order): Promise<void> {
     const newOrder = await this.prisma.order.create({
       data: {
-        id: order.id,
         amount: order.amount,
         createdAt: order.createdAt,
         updatedAt: order.updatedAt,

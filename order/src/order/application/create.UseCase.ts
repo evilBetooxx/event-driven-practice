@@ -1,7 +1,6 @@
 import { Order } from "../domain/order";
 import { IOrderRepository } from "../domain/IOrderRepository";
 import { NotificationNewOrder } from "./services/notificationNewOrder";
-import { v4 as uuid } from "uuid";
 import signale from "signale";
 
 export class createOrderUseCase {
@@ -11,11 +10,10 @@ export class createOrderUseCase {
   ) {}
 
   async run(amount: number): Promise<void> {
-    const id = uuid();
     const createdAt = new Date();
     const updatedAt = new Date();
 
-    const order = new Order(id, amount, createdAt, updatedAt);
+    const order = new Order(amount, createdAt, updatedAt);
 
     try {
       await this.repository.create(order);
